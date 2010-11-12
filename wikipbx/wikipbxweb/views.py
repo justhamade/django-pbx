@@ -1052,7 +1052,7 @@ def completedcalls(request, page=1):
     paginator = Paginator(completedcalls, 15)
     return simple.direct_to_template(
         request, 'completedcalls.html',
-        {'completedcalls':paginator.page(page), 'paginator': paginator})
+        {'completedcalls':paginator.page(page).object_list, 'paginator': paginator})
 
 def outgoing2endpoint(request, endpoint_id):
     """
