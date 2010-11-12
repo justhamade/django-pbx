@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+
+<h2><img src="/site_media/icons/world_add.png" border="0"> Add SIP Gateway </h2>
+
+<p><img src="/site_media/icons/tux.png" border="0"> SIP gateways are used for peering with another SIP provider, such as a provider which provides outgoing and/or origination access to the PSTN.</p>
+
+{% if invalid %}
+<div class="urgentmsg" style="padding-top: 0.5em; padding-bottom: 0.5em;">
+Form contains errors
+</div>
+<br><br>
+{% endif %}
+
+<form method="post" action="/add_gateway/">
+<table>
+{{ form }}
+
+<tr>
+<td></td>
+<td><input type="submit" value="Create Gateway"></td>
+</tr>
+</table>
+
+</form>
+{% endblock %}

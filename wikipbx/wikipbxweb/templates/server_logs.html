@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+{% if serverlogs %}
+
+<table border="1" cellpadding="5">
+{% for serverlog in serverlogs %}
+
+<tr>
+
+
+
+<td>
+{{ serverlog.id }}
+</td>
+
+<td>
+{{ serverlog.logtime }}
+</td>
+
+
+<td>
+{{ serverlog.message }}
+</td>
+
+
+</tr>
+
+{% endfor %}
+</table>
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No server logs found
+
+{% endif %}
+
+
+{% endblock %}

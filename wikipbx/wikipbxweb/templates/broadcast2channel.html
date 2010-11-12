@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+
+
+{% block bodytag %}
+<body onload="document.speakform.text2speak.focus()"> 
+{% endblock %}
+
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/comment.png" border="0"> Convert text to speech and inject into <span title="{{ chan_uuid }}">channel</span></h2>
+
+<p>
+<form id="speakform" name="speakform" method="POST" action="/broadcast2channel/{{ chan_uuid }}/">
+<input type="hidden" name="action" value="tts">
+<p><input type="text" name="text2speak" size="100" TABINDEX=1></p>
+<input type="submit" value="submit">
+</form>
+</p>
+
+
+<h2><img src="/site_media/icons/sound.png" border="0"> Choose Soundclip to inject into <span title="{{ chan_uuid }}">channel</span></h2>
+
+{% if soundclips %}
+
+<table border="1" cellpadding="5">
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Play</th>
+</tr>
+{% for soundclip in soundclips %}
+
+<tr>
+
+<td>{{ soundclip.name }}</td>
+
+<td>{{ soundclip.desc }}</td>
+
+<td><a href="/broadcast2channel/{{ chan_uuid }}/?action=soundclip&soundclip_id={{ soundclip.id }}"><img src="/site_media/icons/sound.png" border="0"></td>
+
+</tr>
+
+{% endfor %}
+</table>
+
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No soundclips found
+
+{% endif %}
+
+
+{% endblock %}

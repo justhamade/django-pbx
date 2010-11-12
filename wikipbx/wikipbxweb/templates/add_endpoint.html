@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block inlinejavascript %}
+function showExtensionForm() {
+    extension_num = document.getElementById("extension_num");
+    if (extension_num.style.display == 'block') {
+        extension_num.style.display='none';
+    }
+    if (extension_num.style.display == 'none') {
+        extension_num.style.display='block';
+    }
+}
+{% endblock %}
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/telephone_add.png" border="0"> Add Endpoint </h2>
+
+<p><img src="/site_media/icons/tux.png" border="0"> Define an endpoint to allow it be registered to the PBX. 
+
+</p>
+
+<form method="post" action="/add_endpoint/">
+<table>
+
+
+<tr><th><a href="javascript:alert('{{ form.userid.help_text}}');">*User ID: </a></th><td>{{ form.userid }} <i>(eg, 101)</i></td> </tr>
+
+<tr><th><label for="id_password">*Password:</label></th><td>{{ form.password }}</td></tr>
+
+
+<tr><th><a href="javascript:alert('{{ form.userprof.help_text}}');">{{ form.userprof.label }}:</a></th><td>{{ form.userprof}}</td></tr>
+
+<tr><td style="padding-top: 1.5em; padding-bottom: 1.5em"></td><td><input onClick="showExtensionForm()" name="create_extension" type="checkbox"> <img src="/site_media/icons/brick_link.png" border="0"> Create an extension in the dial plan for this endpoint</td></tr>
+
+</table>
+
+<div id="extension_num" style="display: None">
+<table>
+
+<tr><th><a href="javascript:alert('{{ form.extension_num.help_text}}');">*Extension #:</a></th><td>{{ form.extension_num}} <i>(eg, ^101$)</i></td></tr>
+
+<tr><th><a href="javascript:alert('{{ form.extension_desc.help_text}}');">Description:</a></th><td>{{ form.extension_desc}}</td></tr>
+
+<tr><th>Action:</th><td>{{ form.extension_action}}</td></tr>
+
+</table>
+</div>
+
+<p><input type="submit" value="Create Endpoint">
+
+
+
+</form>
+
+
+
+{% endblock %}

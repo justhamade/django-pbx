@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+
+
+{% block bodytag %}
+<body>
+{% endblock %}
+
+{% block javascriptincludes %}
+<script type="text/javascript" src="/site_media/MochiKit/MochiKit.js"></script>
+{% endblock %}
+
+
+{% block inlinejavascript %}
+MochiKit.DOM.addLoadEvent(joinMorePeople);
+{% endblock %}
+
+
+{% block dashcontent %}
+
+<form method="post" action="/transfer/{{ chan_uuid }}/">
+
+<h2><u>Transfer live channel </u></h2>
+
+<p><img src="/site_media/icons/tux.png" border="0"> Choose the destination(s) that will be dialed out from {{ dest_ext_app }}.  Calls will be placed in parallel.
+
+
+<!-- dialplan extensions -->
+<h2 style="padding-top: .7em;"><img src="/site_media/icons/brick.png" border="0"> Dialplan Extensions</h2>
+{% if extensions %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> Choose the dialplan extensions that will be dialed out from {{ dest_ext_app }}.  Multiple concurrent outgoing calls can be specified by the pull-down to the right of the checkbox.</p>
+
+<table border="1" cellpadding="5">
+{% for ext in extensions %}
+<tr>
+<td>
+<input type="checkbox" name="checked_dialplan_extensions" value="{{ ext.id }}"/></td>
+
+<td><a href="/edit_extension/{{ ext.id}}/">{{ ext.get_single_expansion }}</a></td>
+<td>
+<small>{{ ext.desc }}</small>
+</td>
+<td>
+{{ ext.get_xml_preview|escape }}
+</td>
+</tr>
+{% endfor %}
+</table>
+{% else %}
+<p><img src="/site_media/icons/tux.png" border="0">No dialplan extensions found
+{% endif %}
+
+
+<p><input type="submit" value="Transfer"></p>
+
+</form>
+
+{% endblock %}

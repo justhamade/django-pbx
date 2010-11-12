@@ -1,0 +1,63 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+
+<!-- system ivrs -->
+
+<h2><img src="/site_media/icons/script.png" border="0"> Interactive Voice Response (IVR) scripts - This Account</h2>
+
+{% if account_ivrs %}
+
+<table border="1" cellpadding="5">
+{% for account_ivr in account_ivrs %}
+
+<tr>
+<td><img src="/site_media/icons/script_edit.png" border="0"> <a href="/edit_ivr/{{ account_ivr.id }}/">{{ account_ivr.name }}.{{ account_ivr.language_ext }}</a></td>
+
+
+<td>
+<a href="/del_ivr/{{ account_ivr.id }}/"><img src="/site_media/icons/delete.png" border="0"></a>
+</td>
+
+
+</tr>
+
+{% endfor %}
+</table>
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No ivrs defined
+
+{% endif %}
+
+<!-- system ivrs -->
+
+
+<h2><img src="/site_media/icons/script.png" border="0"> Interactive Voice Response (IVR) scripts - System Wide</h2>
+
+{% if system_ivrs %}
+
+<table border="1" cellpadding="5">
+{% for system_ivr in system_ivrs %}
+
+<tr>
+<td><img src="/site_media/icons/script_edit.png" border="0"> <a href="/edit_ivr/{{ system_ivr.id }}/">{{ system_ivr.name }}.{{ system_ivr.language_ext }}</a></td>
+</tr>
+
+{% endfor %}
+</table>
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No ivrs defined
+
+{% endif %}
+
+
+
+
+
+{% endblock %}

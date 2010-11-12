@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+
+{% block inlinejavascript %}
+function choose_ext_type(type) {
+    if (type == "local_endpoint") {
+		document.getElementById('raw_xml_div').style.display='none'
+		document.getElementById('local_endpoint_div').style.display='block'
+	}
+    if (type == "raw_xml") {
+		document.getElementById('raw_xml_div').style.display='block'
+		document.getElementById('local_endpoint_div').style.display='none'
+	}
+    
+}
+
+{% include "add2template.js" %}
+
+function load() {
+    document.getElementById('raw_xml_radio').checked=true
+    choose_ext_type('raw_xml')
+}
+{% endblock %}
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/brick_add.png" border="0"> Add Extension to Dialplan </h2>
+
+<p><img src="/site_media/icons/tux.png" border="0"> Dialplan extensions can bridge to locally registered endpoints, remote endpoints, PSTN numbers via gateways, special applications such as the Echo Test, or IVR scripts.  
+
+<form method="post" action="/add_extension/">
+
+
+<span><INPUT name="extension_type" type="radio" id="raw_xml_radio" value="raw_xml" onchange="choose_ext_type('raw_xml')"> <img src="/site_media/icons/page_white_code.png" border="0"> Raw XML<span>
+
+<span><INPUT name="extension_type" type="radio" value="local_endpoint" onchange="choose_ext_type('local_endpoint')"> <img src="/site_media/icons/telephone.png" border="0"> Endpoint<span>
+
+<div style="padding-top: 1em"><b>Extension #:</b> {{ form.dest_num }} <i>(eg, ^101$)</i></div>
+<div style="padding-top: 1em"><b>Description:</b> {{ form.desc }}</div>
+
+<div id="raw_xml_div" style="display:block;">
+<div style="padding-top: 1em"><b>Template:</b> <SELECT NAME="template" id="template"> 
+<option value="echo">Echo Test</option>
+<option value="sip_url">Remote Endpoint</option>
+<option value="sip_endpoint">Locally Registered Endpoint</option>
+<option value="gateway">Gateway Dialout</option>
+<option value="conference">Conference Room</option>
+<option value="playback">Playback Audio</option>
+<option value="speak">Speak Text</option>
+<option value="mod_voicemail_play">Mod_Voicemail Playback</option>
+<option value="mod_voicemail_record">Mod_Voicemail Record</option>
+<option value="transfer">Transfer to another extension</option>
+<option value="park">Park Call</option>
+<option value="lua_ivr">Lua IVR</option>
+<option value="python_ivr">Python IVR</option>
+<option value="javascript_ivr">Javascript IVR</option>
+</SELECT>
+<img src="/site_media/icons/add.png" border="0" onClick="javascript:add2template()">
+</div>
+
+<div id="auth_div" style="display:block; padding-top: 1em;">
+<span><INPUT name="auth_call" type="radio" value="true" checked> <img src="/site_media/icons/lock.png" border="0"> Auth<span>
+
+<span><INPUT name="auth_call" type="radio" value="false"> <img src="/site_media/icons/lock_open.png" border="0"> Public<span>
+</div>
+
+<div id="raw_xml_div" style="display:block; padding-top: 1em;">
+<div style="padding-top: 1em"><b>Action XML:</b></div>
+<div> 
+<textarea id="actions_xml" name="actions_xml" rows="20" cols="90">
+</textarea>
+</div>
+</div>
+<div style="padding-top: 1em"><input type="submit" value="Add"></div>
+</div>  <!-- user selected raw xml -->
+
+<div id="local_endpoint_div" style="display:block; padding-top: 2em;">
+{% if endpoints %}
+<b>Choose Endpoint:</b> <SELECT NAME="endpoint">
+{% for endpoint in endpoints %}
+<OPTION VALUE="{{ endpoint.id }}">{{ endpoint.userid }}</OPTION>
+{% endfor %}
+</SELECT>
+<div style="padding-top: 1em">
+<b>Action:</b> <SELECT NAME="extension_action">
+<option value="bridge_vm">Dial Endpoint + fall back to voicemail</option>
+<option value="bridge">Dial Endpoint</option>
+</SELECT>
+<div style="padding-top: 1em"><input type="submit" value="Add"></div>
+</div>
+{% else %}
+<img src="/site_media/icons/tux.png" border="0"> Sorry, you don't have any endpoints defined.  Please <a href="/add_endpoint">add a new endpoint</a> first.
+{% endif %}
+</div> <!-- user selected local endpoint -->
+
+
+
+</form>
+
+
+
+{% endblock %}

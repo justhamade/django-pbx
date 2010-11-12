@@ -1,0 +1,23 @@
+<document type="freeswitch/xml">
+
+<section name="directory">
+
+<domain name='{{account.get_domain}}'>
+
+  {% if endpoint %}
+  <user id='{{endpoint.userid}}' mailbox='{{endpoint.userprofile.mailbox}}'>
+    <params>
+      <param name='password' value='{{endpoint.password}}'/>
+      <param name='vm-password' value='{{endpoint.password}}'/>
+    </params>
+    <variables>
+      <variable name='sip-force-contact' value='nat-connectile-dysfunction'/>
+    </variables>
+  </user>
+  {% endif %}
+
+</domain>
+
+</section>
+
+</document>

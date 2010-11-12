@@ -1,0 +1,90 @@
+
+{% extends "base.html" %}
+
+{% block inlinejavascript %}
+function choose_upload_method(type) {
+  if (type == 'dialout') {
+    document.getElementById('upload_wav_div').style.display='none'
+    document.getElementById('wav_url_div').style.display='none'
+    document.getElementById('dialout_div').style.display='block'
+  }
+  if (type == 'wav') {
+    document.getElementById('upload_wav_div').style.display='block'
+    document.getElementById('wav_url_div').style.display='none'
+    document.getElementById('dialout_div').style.display='none'
+  }
+  if (type == 'wav_url') {
+    document.getElementById('upload_wav_div').style.display='none'
+    document.getElementById('wav_url_div').style.display='block'
+    document.getElementById('dialout_div').style.display='none'
+  }
+
+}
+
+function load() {
+choose_upload_method('dialout');
+document.getElementById('upload_method_radio').checked = true;
+}
+
+{% endblock %}
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/sound_add.png" border="0"> Add Soundclip to library </h2>
+
+<p><img src="/site_media/icons/tux.png" border="0"> The system will call you and prompt you to record a soundclip, which will be stored in the library with the soundclip name that you assign to it.  This soundclip will then be available for IVR's and other PBX features.</p>
+
+{% if invalid %}
+<div class="urgentmsg" style="padding-top: 0.5em; padding-bottom: 0.5em;">
+Form contains errors
+</div>
+<br><br>
+{% endif %}
+
+
+<form method="post" action="/add_soundclip/" enctype="multipart/form-data">
+
+<span><INPUT id="upload_method_radio" name="upload_method" type="radio" value="dialout" onchange="javascript:choose_upload_method('dialout')">Dialout<span>
+<span class="upload_method"><INPUT name="upload_method" type="radio" value="wav" onchange="choose_upload_method('wav')">Wav Upload</span>
+<span class="upload_method"><INPUT name="upload_method" type="radio" value="wav_url" onchange="choose_upload_method('wav_url')">Wav URL</span>
+<br><br>
+
+<table>
+
+<tr>
+<th>{{ form.name.label }}</th>
+<td>{{ form.name }} <i>(eg, greeting)</i></td>
+</tr>
+
+
+<tr>
+<th>{{ form.desc.label }}</th>
+<td>{{ form.desc }}</td>
+</tr>
+
+</table>
+
+<div id="dialout_div" style="display: none; padding-top: 2em;">
+You will prompted for dialout # on next screen
+</div>
+
+<div id="upload_wav_div" style="display: none; padding-top: 2em;">
+Choose WAV file: <input type="file" name="upload_wav" size="25"> 
+<div style="padding-top: 0.5em">
+<small><i>Format: 1-channel, 16-bit, 8KZ, PCM</i></small>
+</div>
+</div>
+
+<div id="wav_url_div" style="display: none; padding-top: 2em;">
+URL to wav file: <br>
+<input type="text" name="wav_url" size="45">
+</div>
+
+<br><br>
+<input type="submit" value="Continue">
+
+</form>
+
+
+
+{% endblock %}

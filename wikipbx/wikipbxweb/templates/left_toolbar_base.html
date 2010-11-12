@@ -1,0 +1,123 @@
+<div class="ln2">           
+
+<div class="selected">  <a href="/dashboard" style="color: black; text-decoration: none">Dashboard</a>  </div>  
+
+{% block extra %}
+{% endblock %}
+
+{% block server %}
+
+<div class="header">Sip Profiles</div> 
+<div class="indent">           
+<div class="">  <img src="/site_media/icons/transmit_add.png" border=0> <a href="/add_sip_profile">New</a>  </div>
+<div class="">  <img src="/site_media/icons/transmit.png" border=0> <a href="/sip_profiles">Manage</a>  </div>
+</div> 
+
+
+<div class="header">Accounts</div> 
+<div class="indent">           
+<div class="">  <img src="/site_media/icons/group_add.png" border=0> <a href="/add_account">New</a>  </div>
+<div class="">  <img src="/site_media/icons/group.png" border=0> <a href="/accounts">Manage</a>  </div>
+</div> 
+
+<div class="header">Server</div> 
+<div class="indent">           
+<div class="">  <img src="/site_media/icons/page_white_excel.png" border=0></a> <a href="/xml_dialplan">Xml Config</a>  </div>
+<div class="">  <img src="/site_media/icons/cog.png" border=0></a> <a href="/event_socket">Event Socket</a>  </div>
+<div class="">  <img src="/site_media/icons/table.png" border=0></a> <a href="/server_logs">Logs</a>  </div>
+<div class="">  <img src="/site_media/icons/database.png" border=0></a> <a href="/migrate_import">Migration Import</a>  </div>
+</div> 
+
+{% endblock %}
+
+
+{% block account %}
+
+
+<div class="header">Extensions</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/brick_add.png" border=0></a> <a href="/add_extension">Add</a>  </div>            
+<div class="">  <img src="/site_media/icons/brick.png" border=0></a> <a href="/extensions">Dialplan</a>  </div>            
+</div> 
+
+<div class="header">Endpoints</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/telephone_add.png" border=0></a> <a href="/add_endpoint">Add</a>  </div>            
+<div class="">  <img src="/site_media/icons/telephone.png" border=0></a> <a href="/endpoints">Manage</a>  </div>            
+</div> 
+
+<div class="header">Gateways</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/world_add.png" border=0></a> <a href="/add_gateway">Add</a>  </div>            
+<div class="">  <img src="/site_media/icons/world.png" border=0></a> <a href="/gateways">Manage</a>  </div>            
+</div> 
+
+<div class="header">Web Users</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/user_add.png" border="0"> <a href="/add_user/{{ account.id }}">Add</a>   </div>            
+</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/group.png" border="0"> <a href="/users/{{ account.id }}">Manage</a>   </div>            
+</div> 
+
+
+<div class="header">Account</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/group_edit.png" border="0"> <a href="/edit_account/{{ account.id }}">Manage</a>   </div>            
+</div> 
+
+<div class="header">Calls</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/comments.png" border=0></a> <a href="/livecalls">Live</a>  </div>            
+</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/tick.png" border=0></a> <a href="/completedcalls">Completed</a>  </div>            
+</div> 
+
+{% comment %}}
+<div class="header">Mail Server</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/email_edit.png" border=0></a> <a href="/config_mailserver">Configure</a>  </div>            
+<div class="">  <img src="/site_media/icons/email_go.png" border=0></a> <a href="/test_mailserver">Test</a>  </div>            
+</div> 
+{% endcomment %}
+
+<div class="header">IVR Scripts</div> 
+<div class="indent">            
+<div class="">  <img src="/site_media/icons/script_add.png" border=0></a> <a href="/add_ivr">Add</a>  </div>            
+<div class="">  <img src="/site_media/icons/script.png" border=0></a> <a href="/ivrs">Manage</a>  </div>            
+</div> 
+
+
+{% endblock %}
+
+
+{% block enduser %}
+{% comment %}
+<div class="header">Phone Book</div> 
+<div class="indent">            
+<div class=""> <a href="/phonebook"><img src="/site_media/icons/phone.png" border="0"></a> <a href="/phonebook">My Phones</a></div>            
+<div class=""> <a href="/phonebook"><img src="/site_media/icons/folder_user.png" border="0"></a> <a href="/phonebook">Contacts</a></div>            
+</div>
+{% endcomment %}
+
+<div class="header">Sound Clips</div> 
+<div class="indent">            
+<div class=""> <img src="/site_media/icons/sound_add.png" border="0"> <a href="/add_soundclip">Add</a></div>            
+<div class=""> <img src="/site_media/icons/sound.png" border="0"> <a href="/soundclips">Manage</a></div>            
+</div> 
+
+
+{% endblock %}
+
+{% block help %}
+<div class="header">Help</div> 
+<div class="indent">            
+<div class=""> <a href="http://wikipbx.subwiki.com" target="_BLANK"><img src="/site_media/icons/help.png" border="0"></a> <a href="http://wikipbx.subwiki.com" target="_BLANK">User Guide</a></div>           
+</div>
+</div> 
+{% endblock %}
+
+
+</div>  <!-- end ln2 -->
+

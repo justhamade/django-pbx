@@ -1,0 +1,76 @@
+{% load i18n %} 
+
+{% extends "base_outer.html" %}
+
+{% block title %} WikiPBX {% endblock %}
+
+{% block doc_name %} Welcome to WikiPBX! {% endblock %}
+
+{% block header_area %}
+<div style="padding-top: 1em; padding-left: 2em;">
+<h2>Web GUI for FreeSWITCH providing SIP PBX functionality.</h2> 
+
+<p>
+<p>WikiPBX allows you to store SIP endpoints and dialplan extensions in a database and update over a web GUI...
+</p>
+</div>
+{% endblock %}
+
+{% block main_content %}
+<table cellpadding="0" width="100%" cellspacing="0" border="0"> 
+<tr> <td valign="top"> 
+<div class="x"> Sign in to your account 
+
+<form action="/memberlogin/" method="post" name="login"> 
+
+<table cellpadding="0" cellspacing="0" style="margin:15 0 0 0" border="0"> 
+<tr>
+<td align="right" nowrap>Email:&nbsp;</td>
+<td> <input type="text" name="username" size="18" value="{{ username }}"> </td>
+</tr> 
+
+<tr>
+<td></td>
+<td style="color: #444444; font-size: 75%; overflow: hidden;" align="right" dir="ltr"></td>
+<td>
+</td>
+</tr> 
+
+<tr><td colspan="3" height="8"></td></tr> 
+<tr><td colspan="2" height="8"><font color="red"></font></td></tr> 
+<tr><td align="right" nowrap>Password:&nbsp;</td>
+<td> <input type="password" name="password" size="18"> </td></tr> 
+
+<!-- doesnt work
+<tr><td colspan="2" height="8"></td></tr> <tr><td colspan="2" height="8"></td>
+<td></td></tr> <tr><td align="right" valign="top">
+<input type="checkbox" name="persistent" value="true" id="rem"></td>
+<td colspan="2"><label for="rem">Remember me on this computer</label></td>
+</tr
+-->  
+
+<tr><td colspan="3" height="8"></td></tr>  
+<tr><td></td><td><input type="submit" value="Sign In"></td><td></td></tr> 
+<tr><td colspan="3" align="center"> <br>      </td></tr> 
+{% if nousers %}
+<tr><td colspan="3" align="center"> [ <a href="/add_root">Add Root</a> ] </td></tr> 
+{% endif %}
+</table>  
+</form> 
+</div> 
+
+</td> 
+
+<td width="100%" valign="top">    
+
+{% include "product_features.html" %}
+
+</td> </tr> 
+
+<tr><td colspan="99">
+<br>
+</td></tr>
+
+</table> 
+
+{% endblock %}

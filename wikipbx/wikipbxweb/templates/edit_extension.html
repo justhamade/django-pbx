@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load wikipbx %}
+
+{% block inlinejavascript %}
+
+{% include "add2template.js" %}
+
+{% endblock %}
+
+
+{% block dashcontent %}
+
+
+{% if invalid %}
+<div class="urgentmsg" style="padding-top: 0.5em; padding-bottom: 0.5em;">
+Form contained errors.  Please correct and try again.
+</div>
+<br>
+{% endif %}
+
+
+<form method="post" action="/edit_extension/{{ extension.id }}/">
+
+<div style="padding-top: 1em"><b>Extension #:</b> {{ form.dest_num }} <br/> <i>{{ form.dest_num.help_text }}</i></div>
+<div style="padding-top: 1em"><b>Description:</b> {{ form.desc }}</div>
+
+
+<div style="padding-top: 1em"><b>Template:</b> <SELECT NAME="template" id="template"> 
+{% for template in templates.iterkeys %}
+<option value="{{ template }}">{{ template|pretty }}</option>
+{% endfor %}
+</SELECT>
+<img src="/site_media/icons/add.png" border="0" onClick="javascript:add2template()">
+</div>
+
+
+<div id="auth_div" style="display:block; padding-top: 1em;">
+<span><INPUT name="auth_call" type="radio" value="true" {% if extension.auth_call %}checked{% endif %}> <img src="/site_media/icons/lock.png" border="0"> Auth<span>
+
+<span><INPUT name="auth_call" type="radio" value="false" {% if not extension.auth_call %}checked{% endif %}> <img src="/site_media/icons/lock_open.png" border="0"> Public<span>
+</div>
+
+
+<div id="raw_xml_div" style="display:block; padding-top: 1em;">
+<div style="padding-top: 1em"><b>Action XML:</b></div>
+<div> 
+<textarea id="actions_xml" name="actions_xml" rows="20" cols="90">
+{{ extension.actions_xml }}
+</textarea>
+</div>
+
+
+
+
+<p><input type="submit" value="Update"></p>
+
+
+
+
+
+</form>
+
+{% endblock %}

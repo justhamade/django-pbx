@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+{% if blurb %}
+<p><img src="/site_media/icons/tux.png" border="0"> {{ blurb }} </p>
+
+{% endif %}
+
+<form method="post" action=".">
+<table>
+{{ form }}
+
+<tr>
+<td></td>
+<td><input type="submit" value="Submit"></td>
+</tr>
+</table>
+
+
+</form>
+
+
+
+{% endblock %}

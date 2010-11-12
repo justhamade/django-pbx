@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+{% if userprofs %}
+
+<h2>Users for account: {{ account }}</h2>
+
+<table border="1" cellpadding="5">
+{% for userprof in userprofs %}
+
+<tr>
+<td>
+<img src="/site_media/icons/user_edit.png" border="0"> <a href="/edit_user/{{ account.id }}/{{ userprof.user.id }}">{{ userprof.user.email }}</a>
+</td>
+
+<td>
+{% if userprof.is_acct_admin %}
+<div title="Account Administrator"><img src="/site_media/icons/shield.png" border="0"></div>
+{% else %}
+<div title="End-user (no admin privileges)"><img src="/site_media/icons/shield_grey.png" border="0"></div>
+{% endif %}
+</td>
+
+<td>
+<div title="Delete">
+<a href="/del_user/{{ account.id }}/{{ userprof.user.id }}"><img src="/site_media/icons/delete.png" border="0"></a>
+</div>
+</td>
+
+
+</tr>
+
+{% endfor %}
+</table>
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No users found
+
+{% endif %}
+
+
+{% endblock %}

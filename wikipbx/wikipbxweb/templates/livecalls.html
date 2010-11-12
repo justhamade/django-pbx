@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/telephone.png" border="0"> Channels</h2>
+
+{% if channels %}
+
+<table border="1" cellpadding="5">
+<tr>
+<th>Caller</th>
+<th>Dialed Ext</th>
+<th>Inject Audio/TTS</th>
+<th>Caller ID number</th>
+<th>Caller ID name</th>
+<th>Creation Time</th>
+<th>Transfer</th>
+<th>Hang Up</th>
+</tr>
+{% for channel in channels %}
+
+<tr>
+
+<td>{{ channel.name }}</td>
+<td>{{ channel.dest }}</td>
+<td align="center"><a href="{% url wikipbxweb.views.broadcast2channel channel.uuid %}"><img src="/site_media/icons/comment.png" border="0"/> </a></td>
+<td>{{ channel.cid_num }}</td>
+<td>{{ channel.cid_name }}</td>
+<td>{{ channel.created }}</td>
+<td align="center"><a href="{% url wikipbxweb.views.transfer channel.uuid %}"><img src="/site_media/icons/brick_go.png" border="0"/> </a></td>
+<td align="center"><a href="{% url wikipbxweb.views.hangup_channels channel.uuid %}"><img src="/site_media/icons/cancel.png" border="0"/> </a></td>
+
+</tr>
+
+{% endfor %}
+</table>
+
+<p><a href="{% url wikipbxweb.views.hangup_channels %}"><img src="/site_media/icons/cancel.png" border="0"/>Hangup all {{ channels|length }} channels</a></p>
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"/>No channels</p>
+
+{% endif %}
+
+
+{% endblock %}

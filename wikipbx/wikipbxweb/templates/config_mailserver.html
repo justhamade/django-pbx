@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+
+<h2><img src="/site_media/icons/email_edit.png" border="0"> Configure EMail Server</h2>
+
+<p><img src="/site_media/icons/tux.png" border="0"> Configure Email server for this account.  At the time of this writing, only tested with GMail accounts with use_tls set to True.
+
+{% if invalid %}
+<div class="urgentmsg" style="padding-top: 0.5em; padding-bottom: 0.5em;">
+Form contains errors
+</div>
+<br><br>
+{% endif %}
+
+<form method="post" action="/config_mailserver/">
+<table>
+{{ form }}
+
+<tr>
+<td></td>
+<td><input type="submit" value="Add/Update Configuration"></td>
+</tr>
+</table>
+
+
+</form>
+
+
+
+{% endblock %}

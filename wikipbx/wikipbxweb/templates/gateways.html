@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/world.png" border="0"> Gateways</h2>
+
+{% if gateways %}
+
+<table border="1" cellpadding="5">
+{% for gateway in gateways %}
+
+<tr>
+<td><img src="/site_media/icons/world_edit.png" border="0"> <a href="/edit_gateway/{{ gateway.id }}">{{ gateway.name }}</a></td>
+
+<td>
+<a href="/del_gateway/{{ gateway.id }}"><img src="/site_media/icons/delete.png" border="0"></a>
+</td>
+
+
+</tr>
+
+{% endfor %}
+</table>
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No gateways defined
+
+{% endif %}
+
+
+{% endblock %}

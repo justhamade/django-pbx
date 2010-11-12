@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/telephone.png" border="0"> SIP Endpoints</h2>
+
+
+
+{% if endpoints %}
+
+<table border="1" cellpadding="5">
+{% for endpoint in endpoints %}
+
+<tr>
+
+<td><div title="Edit endpoint settings"><img src="/site_media/icons/telephone_edit.png" border="0"> <a href="/edit_endpoint/{{ endpoint.id }}">{{ endpoint.userid }}</a></div></td>
+
+<td>
+
+{% if endpoint.get_extensions %}
+
+<div title="Modify Extension associated with this Endpoint">
+<img src="/site_media/icons/brick.png" border="0"> <a href="/exts4endpoint/{{ endpoint.id }}"> Exts</a>
+</div>
+
+{% else %}
+<div title="No Extension associated with this Endpoint">
+<img src="/site_media/icons/brick_disabled.png" border="0"> Exts
+</div>
+{% endif %}
+
+</td>
+
+<td>
+{% if endpoint.userprofile %}
+<img src="/site_media/icons/user_edit.png" border="0"> {{ endpoint.userprofile.user.email }}
+{% else %}
+<img src="/site_media/icons/user_gray.png" border="0"> No user
+{% endif %}
+</td>
+
+<td><div title="Place an echo test call"><a href="/outgoing2endpoint/{{ endpoint.id }}"><img src="/site_media/icons/connect.png" border="0"></a> Test</div></td>
+
+<td>
+{% if endpoint.is_registered %}
+<div title="endpoint is online"><img src="/site_media/icons/status_online.png" border="0"> <font size="-2">online</font></div>
+{% else %}
+<div title="endpoint is offline (unregistered)"><img src="/site_media/icons/status_offline.png" border="0"> <font size="-2">offline</font></div>
+{% endif %}
+</td>
+
+<td>
+<div title="Delete this endpoint"><a href="/del_endpoint/{{ endpoint.id }}"><img src="/site_media/icons/delete.png" border="0"></div></a>
+</td>
+
+
+</tr>
+
+{% endfor %}
+</table>
+
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No endpoints defined
+
+{% endif %}
+
+
+{% endblock %}

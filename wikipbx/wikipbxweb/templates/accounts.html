@@ -1,0 +1,39 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+{% if accounts %}
+
+<table border="1" cellpadding="5">
+{% for account in accounts %}
+
+<tr>
+<td><img src="/site_media/icons/group_edit.png" border="0"> <a href="/edit_account/{{ account.id }}">{{ account.name }}</a></td>
+
+<td>
+<a href="/users/{{ account.id }}"><img src="/site_media/icons/group.png" border="0"></a>
+</td>
+
+<td>
+<a href="/add_user/{{ account.id }}"><img src="/site_media/icons/user_add.png" border="0"></a>
+</td>
+
+<td>
+<a href="/del_account/{{ account.id }}"><img src="/site_media/icons/delete.png" border="0"></a>
+</td>
+
+
+</tr>
+
+{% endfor %}
+</table>
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No accounts defined
+
+{% endif %}
+
+
+{% endblock %}

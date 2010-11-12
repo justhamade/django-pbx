@@ -1,0 +1,80 @@
+
+{% extends "base.html" %}
+
+{% block inlinejavascript %}
+function showExtra(id) {
+    elt2change = document.getElementById(id)
+	if (elt2change.style.display=='block') {
+		elt2change.style.display='none';
+	}
+	else {
+		elt2change.style.display='block';
+	}
+	
+}
+{% endblock %}
+
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/tick.png" border="0"> Completed Calls</h2>
+
+{% if completedcalls %}
+
+
+<table border="1" cellpadding="5">
+
+<tr>
+<th>Caller ID #</th>
+<th>Destination #</th>
+<th>Channel Name</th>
+<th>Answered Time</th>
+<th>Hangup Time</th>
+<th>XML</th>
+
+</tr>
+
+{% for completedcall in completedcalls %}
+
+<tr>
+
+<td>{{ completedcall.caller_id_number }}</td>
+
+<td>{{ completedcall.destination_number }}</td>
+
+<td>{{ completedcall.chan_name }}</td>
+
+<td>{{ completedcall.answered_time }}</td>
+
+<td>{{ completedcall.hangup_time }}</td>
+
+
+<td colspan="99" id="cdr_xml_{{ completedcall.id }}" style="display:none">
+<textarea name="actions_xml" rows="30" cols="80">{{ completedcall.cdr_xml }}</textarea><br>
+</td>
+
+<td>
+<a href="javascript:doNothing();" onClick="showExtra('cdr_xml_{{ completedcall.id }}')">Show XML</a>
+</td>
+
+</tr>
+
+
+{% endfor %}
+</table>
+
+<p>
+{% include "paginator.html" %}
+</p>
+
+<p>
+
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No completed calls found
+
+{% endif %}
+
+
+{% endblock %}

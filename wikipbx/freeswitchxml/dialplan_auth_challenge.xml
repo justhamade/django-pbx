@@ -1,0 +1,21 @@
+<document type="freeswitch/xml">
+<section name="dialplan" description="Various Dialplan">
+
+<context name='default'>
+
+    <extension continue="true" name="check_auth">
+      <condition break="never" field="${sip_authorized}" expression="^true$">
+        <anti-action application="respond" data="407" />
+      </condition>
+    </extension>
+
+    <extension name="transfer_to_default">
+      <condition>
+        <action application="transfer" data="{{dialed_extension}} XML default" />
+      </condition>
+    </extension>
+
+</context>
+
+</section>
+</document>

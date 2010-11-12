@@ -1,0 +1,42 @@
+{% load i18n %} 
+
+<head>
+<title>{% block title %} Wiki PBX {% endblock %}</title>
+
+{% block cssincludes %}
+<link rel="stylesheet" type="text/css" href="/site_media/styles/base_outer.css"/>
+{% endblock %}
+<STYLE TYPE="text/css">
+{% block inlinestyles %}
+{% endblock %}
+</STYLE>
+{% include "header.html" %}
+<script type="text/javascript">
+{% block inlinejavascript %}
+{% endblock %}
+</script>
+
+</head>
+
+<body> 
+<table cellpadding="0" width="100%" cellspacing="0" border="0" class="header">
+<tr>
+<td width="94" valign="bottom"> 
+<a href="/">
+<img  alt="WikiPBX Logo" src="/site_media/images/wikipbxlogo4.gif" border=0>
+</a>
+</td> 
+<td valign="center">
+
+{% block header_area %}
+{% endblock %}
+</td>
+</tr> 
+</table> 
+
+<br>{% include "info_urgent_msgs.html" %}
+
+{% block main_content %}
+{% endblock %}
+
+{% include "footer_outer.html" %}

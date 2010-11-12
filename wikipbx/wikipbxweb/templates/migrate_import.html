@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+<img src="/site_media/icons/tux.png" border="0"> Use this form to import objects from an XML dump from verion 0.5 of WikiPBX, into live database of 0.8 version of WikiPBX.  Operation will be done on a db transaction so if any exceptions occur, the db will be unchanged.  <font color="red">Please backup any sensitive data before performing this operation.</font>
+
+<h2>XML Import</h2>
+
+<form method="POST" action="/migrate_import/">
+
+<p>XML File on server: <input type="text" name="path2xml">  <i>(eg, /tmp/import.xml)</i>
+
+<p>Sip Profile name: 
+
+<SELECT NAME="sipprofilename2use">
+{% for sipprofile in sipprofiles %}
+<OPTION VALUE="{{sipprofile.name}}">{{sipprofile.name}}</OPTION>
+{% endfor %}
+</SELECT>
+
+<br>
+<br>
+
+<input type="submit" value="Initate Import">
+
+</form>
+
+{% endblock %}

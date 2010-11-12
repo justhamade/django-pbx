@@ -1,0 +1,64 @@
+/*
+
+color combo library
+orange: FF9900
+light blue: 6599FF
+yellow: FFDE00
+green: 097054
+
+*/
+
+.headerbg { background: #6599FF; }
+.menubarbg { background: #FF9900; color: white; font-family: sans-serif; padding-bottom: 2px; }
+.menubaritem { padding-left: 2em; padding-right: 2em; font-size: x-small;}
+.menubarcrumb { padding-left: .5em; padding-right: .5em; font-size: x-small;}
+.sidebar { background: #cccccc; padding-bottom: 500px; }
+.maincontent { background: white; }
+
+.sidebar_section_title { color: #ff3822; font-family: Verdana, serif; text-transform: uppercase; font-weight: bolder; font-size: small; padding-bottom: 1em;}
+
+.sidebar_label { color: #4a8cbc; font-family: Verdana, serif; text-transform: uppercase; font-weight: bolder; font-size: x-small; padding-right: 1em; float: right; padding-top: 5px; }   
+
+.login_field {  font-size: x-small; width: 8em; font-weight: bold; } 
+.login_field:focus {  background: #9db8d3; color: black; font-weight: bold } 
+.login_button { float: right;  color: #4a8cbc; font-weight: bold; }
+.login_button:hover { color: black; }
+
+.sidebar_text { padding-left: 5px; padding-right: 5px; color: #7b7b7b; font-family: Verdana, serif; font-weight: bolder; font-size: x-small; }
+.sidebar_date { color: #4a8cbc; font-family: Verdana, serif; font-weight: bolder; font-size: x-small; }   
+
+.amt { color: white; background: #8fbf47; padding: .3em; font-family: Verdana, serif;  font-weight: bold; font-size: xx-large; border: 1px solid black; }
+
+.neg_amt { color: white; background: red; padding: .3em; font-family: Verdana, serif;  font-weight: bold; font-size: xx-large; border: 1px solid black; }
+
+.amt_sm { color: white; background: #8fbf47; font-family: Verdana, serif;  font-weight: bold; }
+
+.neg_amt_sm { color: white; background: red; padding: .3em; font-family: Verdana, serif;  font-weight: bold; border: 1px solid black; }
+
+.atrail_label { font-family: Verdana, serif;  font-weight: bold; }
+
+.atrail_item { font-family: Verdana, serif; font-size: x-small; }
+
+.urgentmsg { font-weight: bold; color: black; font-family: Verdana, serif; font-size: normal;  border: 0px solid black; padding: 0.2em; text-decoration: underline; background: #D87373}
+
+.infomsg { color: black; font-family: Verdana, serif;  font-style: italic; font-size: normal;  border: 0px solid gray; padding: 0.2em; background: #ddf8cc; text-decoration: underline}
+
+
+tr.normalRow td {
+	background: #FFF;
+	border-bottom: none;
+	border-left: none;
+	padding: 2px 3px 3px 4px
+}
+
+tr.alternateRow td {
+	background: #EEE;
+	border-bottom: none;
+	border-left: none;
+	border-right: 1px solid #CCC;
+	border-top: 1px solid #DDD;
+	padding: 2px 3px 3px 4px
+}
+
+.blurb {font-weight: bold; font-size: 120%; padding-top: 1em; padding-bottom: 2em; }
+.screenshot {padding-left: 1em; padding-right: 1em; padding-top: 1em; }

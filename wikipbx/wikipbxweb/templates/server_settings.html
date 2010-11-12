@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+<form method="post" action="/server_settings/">
+<table>
+{{ form }}
+
+<tr>
+<td></td>
+<td><input type="submit" value="Update Settings"></td>
+</tr>
+</table>
+
+
+</form>
+
+
+
+{% endblock %}

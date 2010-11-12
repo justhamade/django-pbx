@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+<form method="post" action="/event_socket/">
+<table>
+{{ form }}
+
+<tr>
+<td></td>
+<td><input type="submit" value="Update Config"></td>
+</tr>
+</table>
+
+
+</form>
+
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+
+<h2><img src="/site_media/icons/email_go.png" border="0"> Test Mail</h2>
+
+<p><img src="/site_media/icons/tux.png" border="0"> Send an outgoing test mail to see if email server settings are correctly configured. 
+
+{% if invalid %}
+<div class="urgentmsg" style="padding-top: 0.5em; padding-bottom: 0.5em;">
+Form contains errors
+</div>
+<br><br>
+{% endif %}
+
+<form method="post" action="/test_mailserver/">
+<table>
+{{ form }}
+
+<tr>
+<td></td>
+<td><input type="submit" value="Send Test Mail"></td>
+</tr>
+</table>
+
+
+</form>
+
+
+
+{% endblock %}

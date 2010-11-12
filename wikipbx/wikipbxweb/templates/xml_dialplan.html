@@ -1,0 +1,74 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+<img src="/site_media/icons/tux.png" border="0"> Use this form to view the raw XML returned to FreeSWITCH when requested.
+
+<h2>Configuration</h2>
+
+<form method="POST" action="/xml_dialplan/">
+
+<input type="hidden" NAME="section" value="configuration">
+
+<table>
+<tr>
+<td>Key Value</td>
+
+<td>
+
+<SELECT NAME="key_value">
+<OPTION VALUE="xml_cdr.conf">xml_cdr.conf</OPTION>
+<OPTION VALUE="event_socket.conf">event_socket.conf</OPTION>
+<OPTION VALUE="sofia.conf">sofia.conf</OPTION>
+<OPTION VALUE="conference.conf">conference.conf (unused)</OPTION>
+</SELECT>
+</td>
+
+</tr>
+
+
+</table>
+
+<input type="submit" value="Submit">
+
+</form>
+
+
+<!-- broken since 0.8 changes 
+<h2>Dialplan</h2>
+
+<form method="POST" action="/xml_dialplan/">
+
+<input type="hidden" NAME="section" value="dialplan">
+
+<p>SIP port: <input type="text" name="sip_to_port" value="5060">
+
+<p>Destination: <input type="text" name="destination_number">
+
+<input type="submit" value="Submit">
+
+</form>
+-->
+
+
+
+<h2>Directory</h2>
+
+<form method="POST" action="/xml_dialplan/">
+
+<input type="hidden" NAME="section" value="directory">
+
+<!-- todo: should be pull down with all accounts -->
+
+<p>Domain: <input type="text" name="domain" value="account domain">
+
+<p>User: <input type="text" name="user" value="4761">
+
+<!-- <p>Profile: <input type="text" name="profile" value="test"> -->
+
+<input type="submit" value="Submit">
+
+</form>
+
+{% endblock %}

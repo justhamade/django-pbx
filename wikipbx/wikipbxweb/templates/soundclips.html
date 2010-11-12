@@ -1,0 +1,43 @@
+
+{% extends "base.html" %}
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/sound.png" border="0"> Soundclips</h2>
+
+{% if soundclips %}
+
+<table border="1" cellpadding="5">
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Listen</th>
+<th>Delete</th>
+</tr>
+{% for soundclip in soundclips %}
+
+<tr>
+
+<td>{{ soundclip.name }}</td>
+
+<td>{{ soundclip.desc }}</td>
+
+<td><a href="/soundclips_media/{{ account.name }}/{{ soundclip.name }}.wav"><img src="/site_media/icons/sound.png" border="0"></td>
+
+<td><a href="/del_soundclip/{{ soundclip.id }}"><img src="/site_media/icons/delete.png" border="0"></td>
+
+
+</tr>
+
+{% endfor %}
+</table>
+
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No soundclips found
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,94 @@
+
+{% extends "base.html" %}
+
+{% block inlinejavascript %}
+function showExtra(id) {
+	document.getElementById(id).style.display='block';
+}
+{% endblock %}
+
+{% block dashcontent %}
+
+<h2><img src="/site_media/icons/brick.png" border="0"> 
+{% if endpoint %}
+Extensions assoc w/ SIP Endpoint <a href="/edit_endpoint/{{ endpoint.id }}">{{ endpoint }}</a>
+{% else %}
+Extensions (Dialplan)
+{% endif %}
+</h2>
+
+{% if exts %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> When an incoming call comes into the PBX, extensions are matched in the order they are shown here, from top to bottom.  Once a match is found it is executed.  Re-order extensions using the green arrows.</p>
+
+<table border="1" cellpadding="5">
+{% for ext in exts %}
+
+<tr>
+<td nowrap><img src="/site_media/icons/brick_edit.png" border="0"> <a href="/edit_extension/{{ ext.id}}/">{{ ext.dest_num }}</a></td>
+
+
+<td>
+{% if ext.auth_call %}
+<div title="Only authenticated endpoints / parties may dial this extension">
+<img src="/site_media/icons/lock.png" border="0">
+</div>
+{% else %}
+<div title="This is a public extension and no extra auth checking will be done (beyond what the sip profile mandates)">
+<img src="/site_media/icons/lock_open.png" border="0">
+</div>
+{% endif %}
+</td>
+
+
+<td>
+<small>{{ ext.desc }}</small>
+</td>
+
+<td>
+{{ ext.get_xml_preview|escape }}
+</td>
+
+<td>
+{% if ext.get_single_expansion %}
+<div title="Dialout from this extension to another extension or endpoint">
+<a href="/dialout/{{ ext.get_single_expansion }}"><img src="/site_media/icons/phone_go.png" border="0"></a>
+</div>
+{% else %}
+<img src="/site_media/icons/phone_disabled.png" border="0">
+{% endif %}
+</td>
+
+<td>
+<a href="/ext_priority/{{ ext.id }}/highest"><img src="/site_media/icons/dbl_arrow_up.png" border="0"></a>
+</td>
+
+<td>
+<a href="/ext_priority/{{ ext.id }}/lowest"><img src="/site_media/icons/dbl_arrow_down.png" border="0"></a>
+</td>
+
+
+<td>
+<a href="/ext_priority/{{ ext.id }}/raise"><img src="/site_media/icons/arrow_up.png" border="0"></a>
+</td>
+
+<td>
+<a href="/ext_priority/{{ ext.id }}/lower"><img src="/site_media/icons/arrow_down.png" border="0"></a>
+</td>
+
+
+<td><a href="/del_extension/{{ ext.id }}"><img src="/site_media/icons/delete.png" border="0"></a></td>
+
+</tr>
+
+{% endfor %}
+</table>
+
+{% else %}
+
+<p><img src="/site_media/icons/tux.png" border="0"> No extensions defined
+
+{% endif %}
+
+
+{% endblock %}
