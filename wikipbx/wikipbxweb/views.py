@@ -39,7 +39,7 @@ from wikipbx import xmlconfig, cdrutil, mailutil, sofiautil, ttsutil, statics
 from wikipbx import migrate
 from wikipbx.wikipbxweb.models import *
 from wikipbx.wikipbxweb.forms import *
-from wikipbx.wikipbxweb.paginator import Paginator
+from django.core.paginator import Paginator
 from xml.dom import minidom
 
 
@@ -120,12 +120,12 @@ def edit_extension(request, extension_id):
         form = ExtensionForm(request.POST)        
         if form.is_valid():
             # valid, save info
-            actions_xml = form.clean_data['actions_xml']
+            actions_xml = form.cleaned_data['actions_xml']
             # does xml parse?
             xml_str = "<fakeroot>%s</fakeroot>" % actions_xml
             minidom.parseString(str(xml_str))
-            extension.dest_num = form.clean_data['dest_num']
-            extension.desc = form.clean_data['desc']
+            extension.dest_num = form.cleaned_data['dest_num']
+            extension.desc = form.cleaned_data['desc']
 
             # ugh, its too time consuming to do the auth_call
             # radio buttons using the ExtensioForm, just use HTML/POST
@@ -248,10 +248,10 @@ def edit_ivr(request, ivr_id):
                 return http.HttpResponseRedirect("/ivrs/?urgentmsg=%s" % msg)
         form = IvrForm(request.POST)        
         if form.is_valid():
-            ivr.name = form.clean_data['name']
-            ivr.language_ext = form.clean_data['language_ext']
+            ivr.name = form.cleaned_data['name']
+            ivr.language_ext = form.cleaned_data['language_ext']
             ivr.save()
-            ivr.script2file(form.clean_data['ivr_code'])
+            ivr.script2file(form.cleaned_data['ivr_code'])
             msg = "Ivr %s saved" % ivr
             return http.HttpResponseRedirect("/ivrs/?infomsg=%s" % msg)
     else:
@@ -318,9 +318,9 @@ def event_socket(request):
         # process form
         form = EventSocketConfigForm(request.POST)        
         if form.is_valid():
-            eventsocket.listen_ip = form.clean_data['listen_ip']
-            eventsocket.listen_port = form.clean_data['listen_port']
-            eventsocket.password = form.clean_data['password']            
+            eventsocket.listen_ip = form.cleaned_data['listen_ip']
+            eventsocket.listen_port = form.cleaned_data['listen_port']
+            eventsocket.password = form.cleaned_data['password']            
             eventsocket.save()
             msg = "EventSocketConfig config %s updated" % eventsocket.id
             return http.HttpResponseRedirect("/dashboard?infomsg=%s" % msg)
@@ -342,10 +342,10 @@ def add_ivr(request):
         form = IvrForm(request.POST)        
         if form.is_valid():
             ivr = Ivr(
-                name=form.clean_data['name'], account=account,
-                language_ext=form.clean_data['language_ext'])
+                name=form.cleaned_data['name'], account=account,
+                language_ext=form.cleaned_data['language_ext'])
             ivr.save()
-            ivr.script2file(form.clean_data['ivr_code'])
+            ivr.script2file(form.cleaned_data['ivr_code'])
             msg = "Ivr %s saved" % ivr
             return http.HttpResponseRedirect("/ivrs/?infomsg=%s" % msg)
 
@@ -364,15 +364,15 @@ def edit_account(request, account_id):
         # process form
         form = AccountForm(sip_profiles, request.POST)        
         if form.is_valid():
-            dp_id=form.clean_data['dialout_profile']
+            dp_id=form.cleaned_data['dialout_profile']
             dialout_profile = SipProfile.objects.get(pk=dp_id)
 
-            account.name = form.clean_data['name']
-            account.enabled = form.clean_data['enabled']
-            account.domain = form.clean_data['domain']            
-            account.enabled = form.clean_data['enabled']
+            account.name = form.cleaned_data['name']
+            account.enabled = form.cleaned_data['enabled']
+            account.domain = form.cleaned_data['domain']            
+            account.enabled = form.cleaned_data['enabled']
             account.dialout_profile=dialout_profile
-            account.aliased=form.clean_data['aliased']
+            account.aliased=form.cleaned_data['aliased']
             account.save()
             referer = utils.strip_url_params(request.META['HTTP_REFERER'])
 
@@ -399,14 +399,14 @@ def add_sip_profile(request):
         form = SipProfileForm(request.POST)        
         if form.is_valid():
             sipprofile = SipProfile.objects.create(
-                name=form.clean_data['name'],
-                ext_rtp_ip=form.clean_data['ext_rtp_ip'],
-                ext_sip_ip=form.clean_data['ext_sip_ip'],
-                rtp_ip=form.clean_data['rtp_ip'],
-                sip_ip=form.clean_data['sip_ip'],
-                sip_port=form.clean_data['sip_port'],
-                accept_blind_reg = form.clean_data['accept_blind_reg'],
-                auth_calls = form.clean_data['auth_calls'])
+                name=form.cleaned_data['name'],
+                ext_rtp_ip=form.cleaned_data['ext_rtp_ip'],
+                ext_sip_ip=form.cleaned_data['ext_sip_ip'],
+                rtp_ip=form.cleaned_data['rtp_ip'],
+                sip_ip=form.cleaned_data['sip_ip'],
+                sip_port=form.cleaned_data['sip_port'],
+                accept_blind_reg = form.cleaned_data['accept_blind_reg'],
+                auth_calls = form.cleaned_data['auth_calls'])
             return fsutil.restart_profiles(
                 "Sip Profile updated. FreeSWITCH notified",
                 "Sip Profile updated, failed to notify FreeSWITCH: %s",
@@ -429,14 +429,14 @@ def edit_sip_profile(request, profile_id):
         # process form
         form = SipProfileForm(request.POST)        
         if form.is_valid():
-            sipprofile.name = form.clean_data['name']
-            sipprofile.ext_rtp_ip = form.clean_data['ext_rtp_ip']
-            sipprofile.ext_sip_ip = form.clean_data['ext_sip_ip']
-            sipprofile.rtp_ip = form.clean_data['rtp_ip']
-            sipprofile.sip_ip = form.clean_data['sip_ip']
-            sipprofile.sip_port = form.clean_data['sip_port']
-            sipprofile.accept_blind_reg = form.clean_data['accept_blind_reg']
-            sipprofile.auth_calls = form.clean_data['auth_calls']
+            sipprofile.name = form.cleaned_data['name']
+            sipprofile.ext_rtp_ip = form.cleaned_data['ext_rtp_ip']
+            sipprofile.ext_sip_ip = form.cleaned_data['ext_sip_ip']
+            sipprofile.rtp_ip = form.cleaned_data['rtp_ip']
+            sipprofile.sip_ip = form.cleaned_data['sip_ip']
+            sipprofile.sip_port = form.cleaned_data['sip_port']
+            sipprofile.accept_blind_reg = form.cleaned_data['accept_blind_reg']
+            sipprofile.auth_calls = form.cleaned_data['auth_calls']
             sipprofile.save()
             return fsutil.restart_profiles(
                 "Sip Profile updated. FreeSWITCH notified",
@@ -465,23 +465,23 @@ def add_account(request):
                 transaction.enter_transaction_management()
                 transaction.managed(True)
 
-                dp_id=form.clean_data['dialout_profile']
+                dp_id=form.cleaned_data['dialout_profile']
                 dialout_profile = SipProfile.objects.get(pk=dp_id)
                 
                 account = Account.objects.create(
-                    name=form.clean_data['name'],
-                    enabled=form.clean_data['enabled'],
-                    domain=form.clean_data['domain'],
+                    name=form.cleaned_data['name'],
+                    enabled=form.cleaned_data['enabled'],
+                    domain=form.cleaned_data['domain'],
                     dialout_profile=dialout_profile,
-                    aliased=form.clean_data['aliased'])
+                    aliased=form.cleaned_data['aliased'])
 
-                email = form.clean_data['email']
-                password = form.clean_data['password']            
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']            
                 user = User.objects.create_user(email, email, password)
-                user.first_name = form.clean_data['first_name']
-                user.last_name = form.clean_data['last_name']
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
                 user.is_staff = False
-                user.is_active = form.clean_data['is_active']
+                user.is_active = form.cleaned_data['is_active']
                 user.is_superuser = False    
                 user.save()
 
@@ -542,24 +542,24 @@ def add_user(request, account_id):
         # process form
         form = UserProfileForm(request.POST)        
         if form.is_valid():
-            email = form.clean_data['email']
+            email = form.cleaned_data['email']
             try:
                 transaction.enter_transaction_management()
                 transaction.managed(True)
             
                 user = User.objects.create_user(
-                    email, email, form.clean_data['password'])
-                user.first_name = form.clean_data['first_name']
-                user.last_name = form.clean_data['last_name']
+                    email, email, form.cleaned_data['password'])
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
                 user.is_staff = False
-                user.is_active = form.clean_data['is_active']
+                user.is_active = form.cleaned_data['is_active']
                 user.is_superuser = False
                 user.save()
 
                 userprof = UserProfile.objects.create(
                     user=user, account=account)
 
-                is_admin = form.clean_data['is_admin']
+                is_admin = form.cleaned_data['is_admin']
                 if is_admin:
                     account.admins.add(userprof)
                     
@@ -611,10 +611,10 @@ def edit_user(request, account_id, user_id):
         # process form
         form = UserProfileEditForm(request.POST)        
         if form.is_valid():
-            userprof.user.email = form.clean_data['email']
-            userprof.user.first_name = form.clean_data['first_name']
-            userprof.user.last_name = form.clean_data['last_name']
-            userprof.user.is_active = form.clean_data['is_active']
+            userprof.user.email = form.cleaned_data['email']
+            userprof.user.first_name = form.cleaned_data['first_name']
+            userprof.user.last_name = form.cleaned_data['last_name']
+            userprof.user.is_active = form.cleaned_data['is_active']
             userprof.save()
             userprof.user.save()
             msg = "User %s updated" % userprof
@@ -679,21 +679,21 @@ def edit_gateway(request, gateway_id):
         form = SofiaGatewayForm(SipProfile.objects.all(), False, request.POST)        
         if form.is_valid():
 
-            sip_profile_id = form.clean_data['sip_profile']
+            sip_profile_id = form.cleaned_data['sip_profile']
             gw.sip_profile = SipProfile.objects.get(pk=sip_profile_id)
             
-            ciif = form.clean_data['caller_id_in_from']
-            gw.name = form.clean_data['name']
-            gw.username = form.clean_data['username']
-            gw.password = form.clean_data['password']
-            gw.proxy = form.clean_data['proxy']
-            gw.register = form.clean_data['register']
-            gw.extension = form.clean_data['extension']
-            gw.realm = form.clean_data['realm']
-            gw.from_domain = form.clean_data['from_domain']
-            gw.expire_seconds = form.clean_data['expire_seconds']
-            gw.retry_seconds = form.clean_data['retry_seconds']
-            val = form.clean_data['accessible_all_accts']
+            ciif = form.cleaned_data['caller_id_in_from']
+            gw.name = form.cleaned_data['name']
+            gw.username = form.cleaned_data['username']
+            gw.password = form.cleaned_data['password']
+            gw.proxy = form.cleaned_data['proxy']
+            gw.register = form.cleaned_data['register']
+            gw.extension = form.cleaned_data['extension']
+            gw.realm = form.cleaned_data['realm']
+            gw.from_domain = form.cleaned_data['from_domain']
+            gw.expire_seconds = form.cleaned_data['expire_seconds']
+            gw.retry_seconds = form.cleaned_data['retry_seconds']
+            val = form.cleaned_data['accessible_all_accts']
             gw.accessible_all_accts = val
             gw.caller_id_in_from = ciif
             gw.save()
@@ -740,21 +740,21 @@ def add_gateway(request):
             else:
                 raise Exception("Could not find Sip Profile: %s" % sip_profile_id)
 
-            ciif = form.clean_data['caller_id_in_from']
-            aac = form.clean_data['accessible_all_accts']
+            ciif = form.cleaned_data['caller_id_in_from']
+            aac = form.cleaned_data['accessible_all_accts']
             gw = SofiaGateway.objects.create(
-                account=account, name=form.clean_data['name'],
-                username=form.clean_data['username'],
+                account=account, name=form.cleaned_data['name'],
+                username=form.cleaned_data['username'],
                 sip_profile=sip_profile,
-                password=form.clean_data['password'],
-                proxy=form.clean_data['proxy'],
-                register=form.clean_data['register'],
+                password=form.cleaned_data['password'],
+                proxy=form.cleaned_data['proxy'],
+                register=form.cleaned_data['register'],
                 caller_id_in_from=ciif,
-                extension=form.clean_data['extension'],
-                realm=form.clean_data['realm'],
-                from_domain=form.clean_data['from_domain'],
-                expire_seconds=form.clean_data['expire_seconds'],
-                retry_seconds=form.clean_data['retry_seconds'],
+                extension=form.cleaned_data['extension'],
+                realm=form.cleaned_data['realm'],
+                from_domain=form.cleaned_data['from_domain'],
+                expire_seconds=form.cleaned_data['expire_seconds'],
+                retry_seconds=form.cleaned_data['retry_seconds'],
                 accessible_all_accts = aac)
 
             return fsutil.restart_profiles(
@@ -1049,10 +1049,10 @@ def completedcalls(request, page=1):
     account = request.user.get_profile().account        
     completedcalls = CompletedCall.objects.filter(
         account=account).order_by("-hangup_time")
-    paginator = Paginator(request, completedcalls, page, 15)
+    paginator = Paginator(completedcalls, 15)
     return simple.direct_to_template(
         request, 'completedcalls.html',
-        {'completedcalls':paginator.get_page(), 'paginator': paginator})
+        {'completedcalls':paginator.page(page), 'paginator': paginator})
 
 def outgoing2endpoint(request, endpoint_id):
     """
@@ -1114,14 +1114,14 @@ def add_root(request):
         form = RootUserForm(request.POST)        
         if form.is_valid():
 
-            email = form.clean_data['email']
-            password = form.clean_data['password']            
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']            
             user = User.objects.create_user(email, email, password)
-            user.first_name = form.clean_data['first_name']
-            user.last_name = form.clean_data['last_name']
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
             user.is_staff = False
-            user.is_active = form.clean_data['is_active']
-            user.is_superuser = form.clean_data['is_superuser']
+            user.is_active = form.cleaned_data['is_active']
+            user.is_superuser = form.cleaned_data['is_superuser']
             user.save()
 
             msg = "Root %s added" % user
@@ -1324,12 +1324,12 @@ def config_mailserver(request):
         form = ConfigMailserverForm(request.POST)
         if form.is_valid():
             # create or update
-            from_email = form.clean_data["from_email"]
-            email_host = form.clean_data["email_host"]
-            email_port = form.clean_data["email_port"]
-            auth_user = form.clean_data["auth_user"]
-            auth_password = form.clean_data["auth_password"]
-            use_tls = form.clean_data["use_tls"]
+            from_email = form.cleaned_data["from_email"]
+            email_host = form.cleaned_data["email_host"]
+            email_port = form.cleaned_data["email_port"]
+            auth_user = form.cleaned_data["auth_user"]
+            auth_password = form.cleaned_data["auth_password"]
+            use_tls = form.cleaned_data["use_tls"]
             if emailconfigs:
                 # update
                 emailconfig = emailconfigs[0]
@@ -1383,9 +1383,9 @@ def test_mailserver(request):
         form = TestMailserverForm(request.POST)
         if form.is_valid():
             mailutil.acct_send(
-                recipients=[form.clean_data["recipient"]],
-                subject=form.clean_data["subject"],
-                msg_body=form.clean_data["msg_body"], account=account)
+                recipients=[form.cleaned_data["recipient"]],
+                subject=form.cleaned_data["subject"],
+                msg_body=form.cleaned_data["msg_body"], account=account)
 
             msg = "Test email was sent"
             return http.HttpResponseRedirect("/dashboard/?infomsg=%s" % msg)

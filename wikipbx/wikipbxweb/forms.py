@@ -24,9 +24,9 @@ the Initial Developer. All Rights Reserved.
 Contributor(s): 
 """
 import re
-from django import newforms as forms
-from django.core.validators import ip4_re
-from django.newforms import widgets
+from django import forms
+from django.core.validators import validate_ipv4_address
+from django.forms import widgets
 
 __all__ = (
     'ConfigMailserverForm', 'TestMailserverForm', 'ExtensionForm',
@@ -46,7 +46,7 @@ class FreeswitchAddressField(forms.CharField):
             max_length=max_length, initial=initial, *args, **kwargs)
         
     def clean(self, value):
-        if (value in ADDRESS_CONSTANTS or ip4_re.match(value)
+        if (value in ADDRESS_CONSTANTS or validate_ipv4_address(value)
             or stun_re.match(value)):
             return value
         else:
@@ -91,7 +91,7 @@ class ExtensionForm(forms.Form):
         max_length=5000, required=True, widget=ta_actions_xml)
 
     def clean_dest_num(self):
-        value = self.clean_data['dest_num']
+        value = self.cleaned_data['dest_num']
         try:
             re.compile(value)
         except Exception:
@@ -323,8 +323,8 @@ class EventSocketConfigForm(forms.Form):
     password = forms.CharField(max_length=25)
 
     def clean_listen_ip(self):
-        value = self.clean_data['listen_ip']
-        if ip4_re.match(value):
+        value = self.cleaned_data['listen_ip']
+        if validate_ipv4_address(value):
             return value
         else:
             raise forms.ValidationError('Not a valid IPv4 field')        

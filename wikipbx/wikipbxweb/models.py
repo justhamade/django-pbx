@@ -91,9 +91,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.email
 
-    class Admin:
-        pass
-
 
 class SipProfile(models.Model):
     """
@@ -159,8 +156,6 @@ class SipProfile(models.Model):
         retval['auth_calls'] = self.auth_calls
         return retval
 
-    class Admin:
-        pass
     
 class Account(models.Model):
 
@@ -234,10 +229,6 @@ class Account(models.Model):
 
     def __str__(self):
         return self.name
-
-    class Admin:
-        pass
-    
 
     
 class Extension(models.Model):
@@ -392,10 +383,6 @@ class Extension(models.Model):
         return "%s (%s)" % (self.dest_num, self.priority_position)
 
 
-    class Admin:
-        pass
-
-    
 class Endpoint(models.Model):
     """
     Each SIP endpoint that will register with the system
@@ -444,9 +431,6 @@ class Endpoint(models.Model):
     class Meta:
     	unique_together = (("userid", "account"),)
     
-    class Admin:
-        pass
-
 
 class SofiaGateway(models.Model):
 
@@ -515,9 +499,6 @@ class SofiaGateway(models.Model):
         retval['sip_profile']=self.sip_profile.id
         return retval
 
-    class Admin:
-        pass
-
 
 class ServerLog(models.Model):
     """
@@ -558,9 +539,6 @@ class EmailConfig(models.Model):
         retval['use_tls'] = self.use_tls
         return retval
     
-    class Admin:
-        pass
-
 
 class Ivr(models.Model):
 
@@ -671,8 +649,6 @@ class Ivr(models.Model):
     def __str__(self):
         return "%s.%s (id=%s)" % (self.name, self.language_ext, self.id)
 
-    class Admin:
-        pass
 
 class Soundclip(models.Model):
     """
@@ -697,9 +673,6 @@ class Soundclip(models.Model):
         
     def __str__(self):
         return "%s (id=%s)" % (self.name, self.id)
-
-    class Admin:
-        pass
 
 
 class PhoneContact(models.Model):
@@ -735,9 +708,6 @@ class PhoneContact(models.Model):
 
     def __str__(self):
         return self.name
-
-    class Admin:
-        pass
 
 
 class CompletedCall(models.Model):
@@ -787,9 +757,6 @@ class CompletedCall(models.Model):
         else:
             return "%s seconds" % seconds
     
-    class Admin:
-        pass
-
 
 class EventSocketConfig(models.Model):
     """
@@ -813,8 +780,6 @@ class EventSocketConfig(models.Model):
         result["password"] = self.password
         return result
 
-    class Admin:
-        pass
 
 __all__ = (
     'ServerLog', 'UserProfile', 'Account', 'EmailConfig',

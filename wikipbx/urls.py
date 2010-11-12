@@ -27,12 +27,15 @@ Stas Shtin <antisvin@gmail.com>
 import os
 from django.conf.urls.defaults import *
 from django.conf import settings
+from django.contrib import admin
+
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # You can add your own apps here e.g.:
     # (r'^foo/', include('foo.urls')),
 
-    (r'^admin/', include('django.contrib.admin.urls')),)
+    (r'^admin/', include(admin.site.urls)),)
 
 # Enable static serving only for debug mode. Use your web server as front-end
 # in production.

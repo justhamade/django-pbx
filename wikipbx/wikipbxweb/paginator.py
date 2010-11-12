@@ -24,10 +24,10 @@ the Initial Developer. All Rights Reserved.
 Contributor(s): 
 """
 
-from django.core.paginator import ObjectPaginator, InvalidPage
+from django.core.paginator import Paginator, InvalidPage
 from django.http import Http404
 
-class Paginator(ObjectPaginator):
+class Paginator(Paginator):
 	def __init__(self, request=None, query_set=None, current_page=1, page_size=20, padding=3 ):
 		from re import sub
 		ObjectPaginator.__init__(self, query_set, page_size)
